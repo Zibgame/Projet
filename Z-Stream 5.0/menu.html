@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Z-Stream - Accueil</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lalezar&display=swap">
+    <style>
+        body {
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-image: url('https://www.dropbox.com/s/2svwo2j818e17aw/damier%20background.png?dl=1');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            font-family: 'Laleza', sans-serif;
+        }
+
+        #barre-haut {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background-image: linear-gradient(to bottom, hsl(283, 57%, 20%), hsl(283, 57%, 32%));
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: inset 0 0 1em rgb(97, 18, 187), 0 0 2em rgb(0, 0, 0);
+        }
+
+        #logo {
+            width: 350px;
+            display: flex;
+            position: absolute;
+            top: 0px;
+            left: 15px;
+            height: auto;
+            align-items: center;
+        }
+
+        #search-icon {
+            width: 50px;
+            position: absolute;
+            top: 30px;
+            right: 50px;
+            height: auto;
+        }
+
+        #contenu {
+            padding-top: 120px;
+            text-align: center;
+            color: #FFFFFF;
+        }
+
+        .images-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 20px; 
+        }
+
+        .clickable-image {
+            max-width: 300px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .image-rectangle {
+            background-color: #808080;
+            border-radius: 5px;
+            padding: 1px;
+            display: flex;
+            justify-content: center;
+            box-shadow: inset 0 0 10px rgb(97, 18, 187), 0 0 28px rgb(0, 0, 0);
+        }
+
+    </style>
+</head>
+
+<body>
+    <div id="barre-haut">
+        <img id="logo" src="https://www.dropbox.com/s/u8w01tv3lcjifki/Z-Stream-19-07-2023%20%283%29.png?dl=1" alt="Logo Z-Stream">
+        <img id="search-icon" src="https://www.dropbox.com/s/mhvomqc37ou8lnz/search_104498.png?dl=1" alt="Rechercher">
+    </div>
+    <div id="contenu">
+        <div class="images-container image-rectangle">
+            <a href="indexonepeice.html">
+                <img class="clickable-image" src="https://areajugones.sport.es/wp-content/uploads/2022/09/one-piece-3-1080x609.jpg" alt="One Peice">
+            </a>
+            <a href="indexonepunchman.html">
+                <img class="clickable-image" src="https://p4.wallpaperbetter.com/wallpaper/994/454/393/anime-one-punch-man-saitama-one-punch-man-wallpaper-preview.jpg" alt="One Punch Man">
+            </a>
+            <a href="indexyourname.html">
+                <img class="clickable-image" src="https://i.ytimg.com/vi/yao9ww00ul4/maxresdefault.jpg" alt="EMPTY">
+            </a>
+        </div>
+
+        <div class="images-container image-rectangle">
+            <a href="index.html">
+                <img class="clickable-image" src="https://cdn.futura-sciences.com/sources/images/dossier/574/08-574.jpg" alt="EMPTY">
+            </a>
+            <a href="index.html">
+                <img class="clickable-image" src="https://cdn.futura-sciences.com/sources/images/dossier/574/08-574.jpg" alt="EMPTY">
+            </a>
+            <a href="index.html">
+                <img class="clickable-image" src="https://cdn.futura-sciences.com/sources/images/dossier/574/08-574.jpg" alt="EMPTY">
+            </a>
+        </div>
+    </div>
+
+    <script>
+    </script>
+
+</body>
+</html>

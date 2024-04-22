@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <audio id="clic-son" src="C:\Users\faniz\Downloads\Z-Stream\Syst\Sound"></audio>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Z-Stream - OnePeice</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lalezar&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@1,300&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,300;1,500&display=swap');
+
+
+
+        body {
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-image: url('');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            font-family: 'Laleza', sans-serif;
+            background-image: url('https://www.dropbox.com/s/0t6fledojy4rf1a/Z-Stream%20%281%29.png?dl=1');
+
+        }
+
+        #barre-haut {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background-image: linear-gradient(to bottom, hsl(283, 57%, 20%), hsl(283, 57%, 32%));
+            padding: 10px;
+            font-size: 24px;
+            text-align: center;
+            border-radius: 1px;
+            color: #000000;
+            font-family: 'Lalezar', cursive;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: inset 0 0 1em rgb(97, 18, 187), 0 0 2em rgb(0, 0, 0);
+        }
+
+        #logo-image {
+            width: 350px; 
+            border-radius: 1px;
+            display: flex;
+            padding: 10px;
+            height: auto;
+            align-items: center;
+        }
+
+        #video-container {
+            position: relative;
+            width: 53%;
+            height: 0;
+            padding-bottom: 30%; 
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 30px; 
+            box-shadow: inset 0 0 12px rgb(91, 18, 175), 0 0 100px rgb(0, 0, 0);
+
+        }
+        iframe {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: none;
+            box-shadow: inset 0 0 12px rgb(64, 8, 128), 0 0 100px rgb(0, 0, 0);
+        }
+        .boutons-wrapper {
+            position: absolute;
+            top: 20px;
+            right: 22px;
+            display: flex;
+            
+
+        }
+        .bouton-Précédent,.bouton-Suivant {
+            margin-right: 10px;
+            padding: 10px 20px;
+            background-color: #fff;
+            color: #313234;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            font-family: 'Lalezar', cursive;
+
+
+
+
+
+        }
+        .bouton-Précédent:hover,.bouton-Suivant:hover,.pubbutton:hover {
+            margin-right: 10px;
+            padding: 10px 20px;
+            background-color: #dadce1;
+            color: #313234;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            font-family: 'Lalezar', cursive;
+            box-shadow: inset 0 0 12px rgb(97, 18, 187), 0 0 20px rgb(0, 0, 0);
+
+
+            
+        }
+        .select-episode {
+            width: 9%;
+            position: absolute;
+            top: 22px; 
+            left: 22px;
+            font-size: 16px;
+            font-family: 'Lalezar', cursive;
+            background-color: #fff; 
+            border-radius: 10px; 
+            padding: 10px; 
+            box-shadow: inset 0 0 12px rgb(97, 18, 187), 0 0 20px rgb(0, 0, 0);
+        }
+
+
+        .select-episode:hover {
+            width: 9%;
+            position: absolute;
+            top: 22px; 
+            left: 22px; 
+            font-size: 16px;
+            font-family: 'Lalezar', cursive;
+            background-color: #dadce1;
+            border-radius: 10px; 
+            padding: 10px; 
+            box-shadow: inset 0 0 12px rgb(97, 18, 187), 0 0 20px rgb(0, 0, 0);
+        }
+
+        .pubbutton {
+            position: absolute;
+            bottom: -845px; 
+            right: 15px; 
+            padding: 8px 15px;
+            background-color: #fff;
+            font-family: 'Lalezar', cursive;
+            color: #4469AB;
+            border: none;
+            font-size: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            
+        }
+
+        @keyframes rebond {
+          0%, 100% {
+            transform: translateY(0);
+          }
+          50% {
+            transform: translateY(50px);
+          }
+        }
+
+        .video-rebond {
+          animation: rebond 0.6s;
+        }
+        
+        
+    </style>
+</head>
+<body>
+    <div id="barre-haut">
+        <div class="select-episode">
+            <label for="episode-select">Choisir un épisode :</label>
+            <select id="episode-select" onchange="changeEpisode()">
+            </select>
+        </div>
+        <div class="pubbutton" onclick="togglePlayClicSound()">www.textstudio.com / www.vecteezy.com </div>
+
+        <div class="boutons-wrapper">
+            <button class="bouton-Précédent" onclick="episodePrecedent()" style="box-shadow: inset 0 0 12px rgb(97, 18, 187), 0 0 20px rgb(0, 0, 0);">Épisode précédent</button>
+            <button class="bouton-Suivant" onclick="episodeSuivant()" style="box-shadow: inset 0 0 12px rgb(97, 18, 187), 0 0 20px rgb(0, 0, 0);">Épisode suivant</button>
+        </div>
+            
+        <div class="logo-image">
+            <img id="logo-image" src="https://www.dropbox.com/s/u8w01tv3lcjifki/Z-Stream-19-07-2023%20%283%29.png?dl=1" alt="Logo Z-Stream">
+        </div>
+
+    </div>
+    <div id="video-container">
+        <iframe id="un_episode" src="" scrolling="no" frameborder="0" allowfullscreen="true" webkitallowfullscreen="true" referrerpolicy="no-referrer" mozallowfullscreen="true" data-dashlane-frameid="1344"></iframe>
+    </div>
+
+    <script>
+        var episodes = [
+        ];
+
+
+        fetch('C:\Users\faniz\Downloads\Z-Stream\text')
+            .then(response => response.json())
+            .then(data => {
+                episodes = data;
+                ajouterOptionsListeDeroulante();
+                chargerEpisodeSauvegarde();
+                chargerVideo();
+                playClicSound(0.2);
+                playVideo();
+                majListeDeroulante();
+            })
+            .catch(error => console.error('Erreur lors du chargement des épisodes :', error));
+
+        function ajouterOptionsListeDeroulante() {
+            var select = document.getElementById("episode-select");
+            episodes.forEach(episode => {
+                var nouvelleOption = document.createElement("option");
+                nouvelleOption.value = episode.url;
+                nouvelleOption.text = "  Épisode " + episode.numeroEpisode;
+                select.appendChild(nouvelleOption);
+            });
+        }
+
+        var currentEpisode = 0;
+
+        function playClicSound() {
+            var clicSound = document.getElementById('clic-son');
+            clicSound.play();
+        }
+
+        function episodePrecedent() {
+            if (currentEpisode > 0) {
+                currentEpisode--;
+                chargerVideo();
+                playClicSound(0.2); 
+                playVideo(); 
+                sauvegarderEpisodeActuel();
+                majListeDeroulante();
+            }
+        }
+
+        function episodeSuivant() {
+            if (currentEpisode < episodes.length - 1) {
+                currentEpisode++;
+                chargerVideo();
+                playClicSound(0.2);
+                playVideo(); 
+                sauvegarderEpisodeActuel(); 
+                majListeDeroulante();
+            }
+        }
+
+        function changeEpisode() {
+            var select = document.getElementById("episode-select");
+            currentEpisode = select.selectedIndex;
+            chargerVideo();
+            playClicSound(0.2);
+            playVideo(); 
+            sauvegarderEpisodeActuel();
+            majListeDeroulante();
+        }
+
+        function chargerVideo() {
+            var iframe = document.getElementById('un_episode');
+            iframe.src = episodes[currentEpisode];
+        }
+
+        function playVideo() {
+            var iframe = document.getElementById('un_episode');
+            iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+        }
+
+        function sauvegarderEpisodeActuel() {
+            localStorage.setItem('currentEpisode', currentEpisode);
+        }
+
+        function chargerEpisodeSauvegarde() {
+            var episodeSauvegarde = localStorage.getItem('currentEpisode');
+            if (episodeSauvegarde !== null) {
+                currentEpisode = parseInt(episodeSauvegarde);
+            }
+        }
+
+        function majListeDeroulante() {
+            var select = document.getElementById("episode-select");
+            select.selectedIndex = currentEpisode;
+        }
+
+        window.onload = function() {
+            chargerEpisodeSauvegarde();
+            chargerVideo();
+            playClicSound(0.2); 
+            playVideo(); 
+            majListeDeroulante();
+        };
+
+        window.onunload = sauvegarderEpisodeActuel;
+
+        function ajouterEpisode(url, numeroEpisode) {
+            episodes.push(url);
+            var select = document.getElementById("episode-select");
+            var nouvelleOption = document.createElement("option");
+            nouvelleOption.value = url;
+            nouvelleOption.text = "  Épisode " + numeroEpisode;
+            select.appendChild(nouvelleOption);
+        }
+
+        function playClicSound(volume) {
+            var clicSound = document.getElementById('clic-son');
+            clicSound.volume = 0.1; 
+            clicSound.play();
+        }
+
+        document.getElementById('episode-select').addEventListener('mousedown', function() {
+            isDropdownOpen = !isDropdownOpen;
+            playClicSound(0.2);
+        });
+
+        ajouterEpisode("https://fusevideo.net/e/jldkAgvOG6pnPmj", 1);
+        ajouterEpisode("https://fusevideo.net/e/PrqjKay8gpw2yo4", 2);
+        ajouterEpisode("https://fusevideo.net/e/7LAb9nBAdMmmL60", 3);
+        ajouterEpisode("https://fusevideo.net/e/6x9q1YlX0mNaYyp", 4);
+        ajouterEpisode("https://fusevideo.net/e/1P6DB4NmBbWG0qo", 5);
+        ajouterEpisode("https://fusevideo.net/e/3Ljv8EkWdPllAez", 6);
+        ajouterEpisode("https://fusevideo.net/e/5XRMGk8v0mRaKx2", 7);
+        ajouterEpisode("https://fusevideo.net/e/EW2DWKJVWDbpyPl", 8);
+        ajouterEpisode("https://fusevideo.net/e/VWYVV6kJNx9wDje", 9);
+        ajouterEpisode("https://fusevideo.net/e/AJW0BON8d6XWpan", 10);
+        ajouterEpisode("https://fusevideo.net/e/14ojaQgNEYLEzAr", 11);
+        ajouterEpisode("https://fusevideo.net/e/8G0ONWqY0N6p5Ne", 12);
+        ajouterEpisode("https://fusevideo.net/e/wklBNa2AWJveya8", 13);
+        ajouterEpisode("https://fusevideo.net/e/7Gxe68pWBXAZ14r", 14);
+        ajouterEpisode("https://fusevideo.net/e/5db2GZ0xWkKADWP", 15);
+        ajouterEpisode("https://fusevideo.net/e/J9OZNp3A3wpBZp2", 16);
+        ajouterEpisode("https://fusevideo.net/e/pjQRG8V1N5gOJ42", 17);
+        ajouterEpisode("https://fusevideo.net/e/Qo5lpGglEL5VKX0", 18);
+        ajouterEpisode("https://fusevideo.net/e/2P0k4dPeeGbdGR2", 19);
+        ajouterEpisode("https://fusevideo.net/e/YKAgxWKd1g2Lm4V", 20);
+        ajouterEpisode("https://fusevideo.net/e/wMrXQWagk4PmQZB", 21);
+        ajouterEpisode("https://fusevideo.net/e/xQwrANdMjrOmpa5", 22);
+        ajouterEpisode("https://fusevideo.net/e/A6VrPa8md7QlXyA", 23);
+        ajouterEpisode("https://fusevideo.net/e/J5KYYo2kQLGgvpA", 24);
+        ajouterEpisode("https://fusevideo.net/e/qNO9ejG58JwQyV6", 25);
+        ajouterEpisode("https://fusevideo.net/e/oQZ5jxlzMVR6gRX", 26);
+        ajouterEpisode("https://fusevideo.net/e/vN7KRGDVjdPlg5p", 27);
+        ajouterEpisode("https://fusevideo.net/e/ndWbrDwQr6ar3xM", 28);
+        ajouterEpisode("https://fusevideo.net/e/NovPz83GqaR9pYV", 29);
+        ajouterEpisode("https://fusevideo.net/e/AkkGZWYBy1jrbVA", 30);
+        ajouterEpisode("https://fusevideo.net/e/Y0BprAqJb1we6gj", 31);
+        ajouterEpisode("https://fusevideo.net/e/5xvAPaZBAMQbWZO", 32);
+        ajouterEpisode("https://fusevideo.net/e/P6Z7GYee19BxeyP", 33);
+        ajouterEpisode("https://fusevideo.net/e/BjbV409XdglynDB", 34);
+        ajouterEpisode("https://fusevideo.net/e/wXoN1P53A2Om5QD", 35);
+        ajouterEpisode("https://fusevideo.net/e/g9L7xlx5WYrbPxy", 36);
+        ajouterEpisode("https://fusevideo.net/e/o1216b6mW9xAEwB", 37);
+        ajouterEpisode("https://fusevideo.net/e/678aQOQ1D8m1B5Z", 38);
+        ajouterEpisode("https://fusevideo.net/e/8PyrAVAaPxrx14k", 39);
+        ajouterEpisode("https://fusevideo.net/e/gbyZkYExpGrbGPM", 40);
+        ajouterEpisode("https://fusevideo.net/e/Rx0Dodp66B2PyNR", 41);
+        ajouterEpisode("https://fusevideo.net/e/AEB1eXzlDedp5rW", 42);
+        ajouterEpisode("https://fusevideo.net/e/8x7j19XKzDpndYg", 43);
+        ajouterEpisode("https://fusevideo.net/e/VZ8MM2Ngepbme3J", 44);
+        ajouterEpisode("https://fusevideo.net/e/j4JMMvQjayg1RWd", 45);
+        ajouterEpisode("https://fusevideo.net/e/aMmVyXqgZQ9xnQa", 46);
+        ajouterEpisode("https://fusevideo.net/e/l6r0kOggJDKWWQl", 47);
+        ajouterEpisode("https://fusevideo.net/e/oQ8XValGrjVQVVz", 48);
+        ajouterEpisode("https://fusevideo.net/e/qnWVr19ZNxWbd9v", 49);
+        ajouterEpisode("https://fusevideo.net/e/3W1pdwR6o6E7WZe", 50);
+        ajouterEpisode("https://fusevideo.net/e/wj3yNKlW1vVnynp", 51);
+        ajouterEpisode("https://fusevideo.net/e/31zpGYX2NqzEm08", 52);
+        ajouterEpisode("https://fusevideo.net/e/l0wpp6vq2dXVR8E", 53);
+        ajouterEpisode("https://fusevideo.net/e/rbdy8QqwpaDwV07", 54);
+        ajouterEpisode("https://fusevideo.net/e/4lpOGdxEAexLJq4", 55);
+        ajouterEpisode("https://fusevideo.net/e/7eMGmn1Xm4RwVR7", 56);
+        ajouterEpisode("https://fusevideo.net/e/EQZXOVopv4QQGdn", 57);
+        ajouterEpisode("https://fusevideo.net/e/ja2LweGlv7L0mwn", 58);
+        ajouterEpisode("https://fusevideo.net/e/pQKBeZNm6Dq8roA", 59);
+        ajouterEpisode("https://fusevideo.net/e/EYnpZ4OQlY4GOv6", 60);
+        ajouterEpisode("https://fusevideo.net/e/5ey2LYm4M7o8AE5", 61);
+        ajouterEpisode("https://fusevideo.net/e/27Rn4NZ7jxxqarG", 62);
+        ajouterEpisode("https://fusevideo.net/e/LoKgYPQVkW3k8ZL", 63);
+        ajouterEpisode("https://fusevideo.net/e/MEq4EZznrnyQnbM", 64);
+        ajouterEpisode("https://fusevideo.net/e/4pvajXPaKWQZEYw", 65);
+        ajouterEpisode("https://fusevideo.net/e/mYJk0pN7M2vqlkg", 66);
+        ajouterEpisode("https://fusevideo.net/e/mq5dNjgpz3Pje1m", 67);
+        ajouterEpisode("https://fusevideo.net/e/aZnM8Q0O24rKDBa", 68);
+        ajouterEpisode("https://fusevideo.net/e/5rjyYLDomx6xWv5", 69);
+        ajouterEpisode("https://fusevideo.net/e/LPYd4qedONdJwNy", 70);
+        ajouterEpisode("https://fusevideo.net/e/Rv0EGmV4q4Peb0l", 71);
+        ajouterEpisode("https://fusevideo.net/e/nZbj5ypWw2mG56n", 72);
+        ajouterEpisode("https://fusevideo.net/e/wp9RaYOJJ5GoLxQ", 73);
+        ajouterEpisode("https://fusevideo.net/e/BlWgjmmbJGom7JY", 74);
+        ajouterEpisode("https://fusevideo.net/e/eAwOLJmBDDpvNax", 75);
+        ajouterEpisode("https://fusevideo.net/e/WB4zZM3AZgZD0z6", 76);
+        ajouterEpisode("https://fusevideo.net/e/9MeJojjOypQeEv9", 77);
+        ajouterEpisode("https://fusevideo.net/e/J2k5x38gdWBGon1", 78);
+        ajouterEpisode("https://fusevideo.net/e/pM8Lnvm82wWdnz3", 79);
+        ajouterEpisode("https://fusevideo.net/e/jMykaloY9bPNmnj", 80);
+        ajouterEpisode("https://fusevideo.net/e/XpPKolgQrbMG82X", 81);
+        ajouterEpisode("https://fusevideo.net/e/zgJpML3llg5Rlp6", 82);
+        ajouterEpisode("https://fusevideo.net/e/zy0eWAajd3GoQjL", 83);
+        ajouterEpisode("https://fusevideo.net/e/o052qnL0vXq2Xnw", 84);
+        ajouterEpisode("https://fusevideo.net/e/0kZXRYApyXYWxLa", 85);
+        ajouterEpisode("https://fusevideo.net/e/XkvyDJQ66xmLqar", 86);
+        ajouterEpisode("https://fusevideo.net/e/aq6K4oWdQ3GW99g", 87);
+        ajouterEpisode("https://fusevideo.net/e/dbbEWq224VOK1Nd", 88);
+        ajouterEpisode("https://fusevideo.net/e/5pJVQ31EAgYAzEZ", 89);
+        ajouterEpisode("https://fusevideo.net/e/3ovWN1L7NOxzeew", 90);
+        ajouterEpisode("https://fusevideo.net/e/oz9vbBQYrdznmOk", 91);
+        ajouterEpisode("https://fusevideo.net/e/Odrlw8GaDYor80V", 92);
+        ajouterEpisode("https://fusevideo.net/e/neBKVEkz1RYxJKv", 93);
+        ajouterEpisode("https://fusevideo.net/e/o9MZ3mY4xXeOMXo", 94);
+        ajouterEpisode("https://fusevideo.net/e/p76rB730EvqndVx", 95);
+        ajouterEpisode("https://fusevideo.net/e/kKD4A0YeQVKV2bj", 96);
+        ajouterEpisode("https://fusevideo.net/e/O7LjywdljqRBY3o", 97);
+        ajouterEpisode("https://fusevideo.net/e/7K02AKmw8Ma8Aak", 98);
+        ajouterEpisode("https://fusevideo.net/e/w2zjY05BP9JNjbw", 99);
+        ajouterEpisode("https://fusevideo.net/e/J75Vgweg23jvm8p", 100);
+        ajouterEpisode("https://fusevideo.net/e/NbBzkGdoJGKy90N", 101);
+        ajouterEpisode("https://fusevideo.net/e/VQOkZJMgJbGQ20E", 102);
+        ajouterEpisode("https://fusevideo.net/e/PJx3la293ZeaAML", 103);
+        ajouterEpisode("https://fusevideo.net/e/q2OJox6nkAaReNY", 104);
+        ajouterEpisode("https://fusevideo.net/e/b1alpeWLRKKxR8b", 105);
+        ajouterEpisode("https://fusevideo.net/e/A6W2GqaqXyqJOK0", 106);
+        ajouterEpisode("https://fusevideo.net/e/1Q8pXwD8z5gq4D3", 107);
+        ajouterEpisode("https://fusevideo.net/e/yKLMp4qDQjA6zVd", 108);
+        ajouterEpisode("https://fusevideo.net/e/LGpN6ExDlqG9aod", 109);
+        ajouterEpisode("https://fusevideo.net/e/zVGOnN9q2Z9NpMV", 110);
+        ajouterEpisode("https://fusevideo.net/e/7Kl2xr4aYvOj8QZ", 111);
+        ajouterEpisode("https://fusevideo.net/e/pwBqLQO7vBV70d5", 112);
+        ajouterEpisode("https://fusevideo.net/e/V931rjvaPWY7GMJ", 113);
+        ajouterEpisode("https://fusevideo.net/e/oYVxnm4QEX6XraB", 114);
+        ajouterEpisode("https://fusevideo.net/e/8BgDo3nwLYy3LZp", 115);
+        ajouterEpisode("https://fusevideo.net/e/a2enMgK3eWd0YvE", 116);
+        ajouterEpisode("https://fusevideo.net/e/l2EPxnrpXOeeEO4", 117);
+        ajouterEpisode("https://fusevideo.net/e/MnpoaKqxnvx3qZG", 118);
+        ajouterEpisode("https://fusevideo.net/e/DeGl42eymd30KOk", 119);
+        ajouterEpisode("https://fusevideo.net/e/XW1Nb2jN8WzakBV", 120);
+        ajouterEpisode("https://fusevideo.net/e/MRldaGRmRa6GeQL", 121);
+        ajouterEpisode("https://fusevideo.net/e/ARBbqvAnpb4lzpR", 122);
+        ajouterEpisode("https://fusevideo.net/e/nrl792y5L2MP1bN", 123);
+        ajouterEpisode("https://fusevideo.net/e/NOjwXBzrj9KRBky", 124);
+        ajouterEpisode("https://fusevideo.net/e/A7KRL5qWkPQPY6A", 125);
+        ajouterEpisode("https://fusevideo.net/e/84qayBWZKNn3kmL", 126);
+        ajouterEpisode("https://fusevideo.net/e/3Oa8QLkVJv0LMoN", 127);
+        ajouterEpisode("https://fusevideo.net/e/AL3QlgBqVWRwQgN", 128);
+        ajouterEpisode("https://fusevideo.net/e/4Z8WmlwwnV2Odnr", 129);
+        ajouterEpisode("https://fusevideo.net/e/lvaZkMraR4eA6nV", 130);
+        ajouterEpisode("https://fusevideo.net/e/mMPvg3EYvZv3rzW", 131);
+        ajouterEpisode("https://fusevideo.net/e/q1mzxBWz55NXEAq", 132);
+        ajouterEpisode("https://fusevideo.net/e/jlz4v2NY6ADZg10", 133);
+        ajouterEpisode("https://fusevideo.net/e/G912Wwqxa46v3dG", 134);
+        ajouterEpisode("https://fusevideo.net/e/dxBJoyoB62kaMnm", 135);
+        ajouterEpisode("https://fusevideo.net/e/5qvRJRYrErRZ0qA", 136);
+        ajouterEpisode("https://fusevideo.net/e/JdMga5agpDAZbX0", 137);
+        ajouterEpisode("https://fusevideo.net/e/GWv8B7Bx3yvyej5", 138);
+        ajouterEpisode("https://fusevideo.net/e/o228OZONEeVzk6o", 139);
+        ajouterEpisode("https://fusevideo.net/e/6NEKDrDxgNPa7K8", 140);
+        ajouterEpisode("https://fusevideo.net/e/M4qVrvqr8092Dgy", 141);
+        ajouterEpisode("https://fusevideo.net/e/02dKNndoodd8yrb", 142);
+        ajouterEpisode("https://fusevideo.net/e/ZxRav6bJzXbloZQ", 143);
+        ajouterEpisode("https://fusevideo.net/e/wL06vq014YQxMkw", 144);
+        ajouterEpisode("https://fusevideo.net/e/dRNwgANWVywRq0d", 145);
+        ajouterEpisode("https://fusevideo.net/e/DYVyL7zE5kEPAAr", 146);
+        ajouterEpisode("https://fusevideo.net/e/0xJqyM3m0ymaggW", 147);
+        ajouterEpisode("https://fusevideo.net/e/GaYMya3wLMBLxqG", 148);
+        ajouterEpisode("https://fusevideo.net/e/61oJDyB1Rjj9bNK", 149);
+        ajouterEpisode("https://fusevideo.net/e/Gbnr471wl5pn2KG", 150);
+        ajouterEpisode("https://fusevideo.net/e/QNyWqxRpOydMkyr", 151);
+        ajouterEpisode("https://fusevideo.net/e/YA1qaArXzMzX5AY", 152);
+        ajouterEpisode("https://fusevideo.net/e/06LQvnZqMYy04zV", 153);
+        ajouterEpisode("https://fusevideo.net/e/2janLNobRPz54mA", 154);
+        ajouterEpisode("https://fusevideo.net/e/yqjz6dYPa05jJmp", 155);
+        ajouterEpisode("https://fusevideo.net/e/DNYqPLZb8oVYKX6", 156);
+        ajouterEpisode("https://fusevideo.net/e/odk52XNe9mJEx58", 157);
+        ajouterEpisode("https://fusevideo.net/e/bDJVzRL3524Jl5d", 158);
+        ajouterEpisode("https://fusevideo.net/e/kKxdBnXMZdxE0zG", 159);
+        ajouterEpisode("https://fusevideo.net/e/qAoEpDVzzYND84G", 160);
+        ajouterEpisode("https://fusevideo.net/e/VEYpk9l9pbNObdV", 161);
+        ajouterEpisode("https://fusevideo.net/e/j8P4zJlnbaZA8Jj", 162);
+        ajouterEpisode("https://fusevideo.net/e/jDYzmw7qz2m87pJ", 163);
+        ajouterEpisode("https://fusevideo.net/e/e5KYz2lgxNRdr9a", 164);
+        ajouterEpisode("https://fusevideo.net/e/oAB6JbgxZqllywV", 165);
+        ajouterEpisode("https://fusevideo.net/e/608qBdmaaB82qMy", 166);
+        ajouterEpisode("https://fusevideo.net/e/YGzyxwrwdGARxP0", 167);
+        ajouterEpisode("https://fusevideo.net/e/EojdRA8MmrdQxKn", 168);
+        ajouterEpisode("https://fusevideo.net/e/OjOLPVA6099D6xd", 169);
+        ajouterEpisode("https://fusevideo.net/e/eXGW86v28jMEaP3", 170);
+        ajouterEpisode("https://fusevideo.net/e/xJn2DP5vAAmg8rx", 171);
+        ajouterEpisode("https://fusevideo.net/e/w2d4aE7bq1g0EWY", 172);
+        ajouterEpisode("https://fusevideo.net/e/LVQPq5MbAA3gzpK", 173);
+        ajouterEpisode("https://fusevideo.net/e/4bx3bWazW6blYa8", 174);
+        ajouterEpisode("https://fusevideo.net/e/YmypOk0qxBlXPMY", 175);
+        ajouterEpisode("https://fusevideo.net/e/KDGk94z5pZ7qzj2", 176);
+        ajouterEpisode("https://fusevideo.net/e/04w64AgREolK9lz", 177);
+        ajouterEpisode("https://fusevideo.net/e/RW4Bg1qWzAXz5gK", 178);
+        ajouterEpisode("https://fusevideo.net/e/D1a3Kxp5lrwgevD", 179);
+        ajouterEpisode("https://fusevideo.net/e/1aqYBQL7qmG5Ky1", 180);
+        ajouterEpisode("https://fusevideo.net/e/2BgnXJwqG4E3LLK", 181);
+        ajouterEpisode("https://fusevideo.net/e/Gb6mgpaVxvLBA1G", 182);
+        ajouterEpisode("https://fusevideo.net/e/DlkB86Z7gmM46oQ", 183);
+        ajouterEpisode("https://fusevideo.net/e/0vLgOR424oXlVJd", 184);
+        ajouterEpisode("https://fusevideo.net/e/ge6xbnLz6KnyAy5", 185);
+        ajouterEpisode("https://fusevideo.net/e/8dXKJ4gl5bOlwn8", 186);
+        ajouterEpisode("https://fusevideo.net/e/QRZgXGb5WRj61NQ", 187);
+        ajouterEpisode("https://fusevideo.net/e/glwJvDev473d8Jx", 188);
+        ajouterEpisode("https://fusevideo.net/e/NQr3aKA7q7EJJ7x", 189);
+        ajouterEpisode("https://fusevideo.net/e/mRnwZMG2rQLxndm", 190);
+        ajouterEpisode("https://fusevideo.net/e/mJlbenq0QOaJ327", 191);
+        ajouterEpisode("https://fusevideo.net/e/gK8zwnDMwAvQJyp", 192);
+        ajouterEpisode("https://fusevideo.net/e/ABZxQ0MQmWJOQNA", 193);
+        ajouterEpisode("https://fusevideo.net/e/Z7MJ3xDYg9BK7ro", 194);
+        ajouterEpisode("https://fusevideo.net/e/wgVBq3Lx0aJ8qXp", 195);
+        ajouterEpisode("https://fusevideo.net/e/RpKgmJ8EDm38r4z", 196);
+        ajouterEpisode("https://fusevideo.net/e/71Ap8jLe5VAjJj7", 197);
+        ajouterEpisode("https://fusevideo.net/e/0roQ6A3Zl6rod3x", 198);
+        ajouterEpisode("https://fusevideo.net/e/9jjzoX4GLrEbyz9", 199);
+        ajouterEpisode("https://fusevideo.net/e/Yj0JmqALA1RpQjn", 200);
+        ajouterEpisode("https://fusevideo.net/e/d5M0Q1naZxDgXyd", 201);
+        ajouterEpisode("https://fusevideo.net/e/YypovxKjR82jpwa", 202);
+        ajouterEpisode("https://fusevideo.net/e/NgRwwvmMjl2AB3q", 203);
+        ajouterEpisode("https://fusevideo.net/e/Da6Be8XkvpVZkXo", 204);
+        ajouterEpisode("https://fusevideo.net/e/1oJjd7XkkqlXNxW", 205);
+        ajouterEpisode("https://fusevideo.net/e/o51NPqEKGPdx1Po", 206);
+        ajouterEpisode("https://fusevideo.net/e/onBnljW1agqmjno", 207);
+        ajouterEpisode("https://fusevideo.net/e/5V3ABweRZjVz8AJ", 208);
+        ajouterEpisode("https://fusevideo.net/e/LRb4KjYZjGX6dJL", 209);
+        ajouterEpisode("https://fusevideo.net/e/znnwO3XLBrw1Q3z", 210);
+        ajouterEpisode("https://fusevideo.net/e/BDaRw2Zaqqod7vr", 211);
+        ajouterEpisode("https://fusevideo.net/e/rAL7xJobEAv7OLM", 212);
+        ajouterEpisode("https://fusevideo.net/e/p1WbgNnW19aamBl", 213);
+        ajouterEpisode("https://fusevideo.net/e/p7mW26q9ymGP2gV", 214);
+        ajouterEpisode("https://fusevideo.net/e/1knZA4lLAoGRM0r", 215);
+        ajouterEpisode("https://fusevideo.net/e/GozqR0PloElJoqw", 216);
+        ajouterEpisode("https://fusevideo.net/e/MGz2EvwqNq1m1a7", 217);
+        ajouterEpisode("https://fusevideo.net/e/NYYoR1qj01g5a7N", 218);
+        ajouterEpisode("https://fusevideo.net/e/4WLzZwzno6mXOva", 219);
+        ajouterEpisode("https://fusevideo.net/e/blWrK2GBvdJZz3R", 220);
+        ajouterEpisode("https://fusevideo.net/e/xnMNavwe8BMN4wX", 221);
+        ajouterEpisode("https://fusevideo.net/e/WRK8X787pdKNm1g", 222);
+        ajouterEpisode("https://fusevideo.net/e/J6kDQvDXQXXbp8B", 223);
+        ajouterEpisode("https://fusevideo.net/e/V5oJmnlbpbKBqP2", 224);
+        ajouterEpisode("https://fusevideo.net/e/8WXN90XAA4ENGRn", 225);
+        ajouterEpisode("https://fusevideo.net/e/ewvkGR3J3XXdkb6", 226);
+        ajouterEpisode("https://fusevideo.net/e/kAbr6PBd5ZaMaN1", 227);
+        ajouterEpisode("https://fusevideo.net/e/plAWd3LbaNmvEQz", 228);
+        ajouterEpisode("https://fusevideo.net/e/Pn2BAgNovyz1nBP", 229);
+        ajouterEpisode("https://fusevideo.net/e/OG13q2N9wxMwN0Y", 230);
+        ajouterEpisode("https://fusevideo.net/e/BpjZWdxxr6zW8bv", 231);
+        ajouterEpisode("https://fusevideo.net/e/DBxaeE1xLROlb0Z", 232);
+        ajouterEpisode("https://fusevideo.net/e/G7PAM2pveXv4o0x", 233);
+        ajouterEpisode("https://fusevideo.net/e/xmbm7LzbBn80OPK", 234);
+        ajouterEpisode("https://fusevideo.net/e/rkyMV5BXnYlllE6", 235);
+        ajouterEpisode("https://fusevideo.net/e/4mPLE1oZnp93o1K", 236);
+        ajouterEpisode("https://fusevideo.net/e/lnaW9Jz15xXDGek", 237);
+        ajouterEpisode("https://fusevideo.net/e/AprnExWBaXNpVYe", 238);
+        ajouterEpisode("https://fusevideo.net/e/JzAOZ5Ndn5z4xNE", 239);
+        ajouterEpisode("https://fusevideo.net/e/7Wgj1EZnNRvbMJ7", 240);
+        ajouterEpisode("https://fusevideo.net/e/9j6gNzMDG5kPKq9", 241);
+        ajouterEpisode("https://fusevideo.net/e/6jjm20qOZm8GbX6", 242);
+        ajouterEpisode("https://fusevideo.net/e/W6E1z0M6ElynQK2", 243);
+        ajouterEpisode("https://fusevideo.net/e/17GeNXEZLLGl2y1", 244);
+        ajouterEpisode("https://fusevideo.net/e/p9PMDKxj00Kz9vG", 245);
+        ajouterEpisode("https://fusevideo.net/e/JnXLx2AQ2xOn4d5", 246);
+        ajouterEpisode("https://fusevideo.net/e/vrrZ14V1wdbeDrv", 247);
+        ajouterEpisode("https://fusevideo.net/e/nrKQNbPexDANvlX", 248);
+        ajouterEpisode("https://fusevideo.net/e/wZvjLBayWlOZn1w", 249);
+        ajouterEpisode("https://fusevideo.net/e/QXWBGkKKX45Yl2z", 250);
+        ajouterEpisode("https://fusevideo.net/e/lNyQJEraAD7o1y9", 251);
+        ajouterEpisode("https://fusevideo.net/e/rvqZajdEqEbmK7D", 252);
+        ajouterEpisode("https://fusevideo.net/e/JEz3WNLxYRvgE54", 253);
+        ajouterEpisode("https://fusevideo.net/e/096a7AP4WlgYnKy", 254);
+        ajouterEpisode("https://fusevideo.net/e/0Yl9re3l5k2l6dz", 255);
+        ajouterEpisode("https://fusevideo.net/e/V9E7pRx9Q05Q6wV", 256);
+        ajouterEpisode("https://fusevideo.net/e/VzmZXW0A2gZKMpG", 257);
+        ajouterEpisode("https://fusevideo.net/e/x6NjrP0EGLbqJEx", 258);
+        ajouterEpisode("https://fusevideo.net/e/6axv2EXGVKE8xXq", 259);
+        ajouterEpisode("https://fusevideo.net/e/zgEOlBNBWMxkWoJ", 260);
+        ajouterEpisode("https://fusevideo.net/e/Xzy65rEbjkBE5nA", 261);
+        ajouterEpisode("https://fusevideo.net/e/Aq8o9XKJvyBpKBz", 262);
+        ajouterEpisode("https://fusevideo.net/e/mpW49AJM6y729eE", 263);
+        ajouterEpisode("https://fusevideo.net/e/yeqXLzK6mjB90Xy", 264);
+        ajouterEpisode("https://fusevideo.net/e/y3OZP4LL7Qr6kby", 265);
+        ajouterEpisode("https://fusevideo.net/e/3okZpoXaKVRZM03", 266);
+        ajouterEpisode("https://fusevideo.net/e/GEdyRAQy1RXe3Bj", 267);
+        ajouterEpisode("https://fusevideo.net/e/vy5Lk3Bj8aGwo2v", 268);
+        ajouterEpisode("https://fusevideo.net/e/6ZLGaJJ33rljaJX", 269);
+        ajouterEpisode("https://fusevideo.net/e/xbKbwNN1rOLdLXj", 270);
+        ajouterEpisode("https://fusevideo.net/e/YPG2rNm6NB8VXBO", 271);
+        ajouterEpisode("https://fusevideo.net/e/YPG2rNm6NB8VXBO", 272);
+        ajouterEpisode("https://fusevideo.net/e/xO5WQX2MqdLwOWA", 273);
+        ajouterEpisode("https://fusevideo.net/e/Nzyq5R6EwGAp4Z1", 274);
+        ajouterEpisode("https://fusevideo.net/e/EpRZ46ZDMYavQGW", 275);
+        ajouterEpisode("https://fusevideo.net/e/Zqo5VQ7eDdzodPl", 276);
+        ajouterEpisode("https://fusevideo.net/e/VdR3gY3d96PPvnb", 277);
+        ajouterEpisode("https://fusevideo.net/e/rqV8e2Ao86k1E9g", 278);
+        ajouterEpisode("https://fusevideo.net/e/0yRdN2V92n2MWvq", 279);
+        ajouterEpisode("https://fusevideo.net/e/OkdqjWGolEKYJYv", 280);
+        ajouterEpisode("https://fusevideo.net/e/6m1zae3Nn3XRAA6", 281);
+        ajouterEpisode("https://fusevideo.net/e/nJbwW2O7XmwXOjn", 282);
+        ajouterEpisode("https://fusevideo.net/e/POMGOAYk3YB16Op", 283);
+        ajouterEpisode("https://fusevideo.net/e/8WR57255OgmLD0l", 284);
+        ajouterEpisode("https://fusevideo.net/e/pPaw9WwP8yGZlWb", 285);
+        ajouterEpisode("https://fusevideo.net/e/VQZD3OL3WJJJDD6", 286);
+        ajouterEpisode("https://fusevideo.net/e/Dq1gBVgxMyVmMoD", 287);
+        ajouterEpisode("https://fusevideo.net/e/dJLkGZkbYwDQPkg", 288);
+        ajouterEpisode("https://fusevideo.net/e/wNQqZ9JgWORYax1", 289);
+        ajouterEpisode("https://fusevideo.net/e/y2M0WKn1XgqeEXL", 290);
+        ajouterEpisode("https://fusevideo.net/e/wvPyMbZVAlaMkOE", 291);
+        ajouterEpisode("https://fusevideo.net/e/EpBbdYR7O1NL175", 292);
+        ajouterEpisode("https://fusevideo.net/e/vrj3qLKpdzJ6M9v", 293);
+        ajouterEpisode("https://fusevideo.net/e/xvO0Pg9J4kXg9B8", 294);
+        ajouterEpisode("https://fusevideo.net/e/py9lVAJO6G0my6p", 295);
+        ajouterEpisode("https://fusevideo.net/e/ljJbzk5bo0ZK9Kl", 296);
+        ajouterEpisode("https://fusevideo.net/e/5WqpnZgANr8yRgY", 297);
+        ajouterEpisode("https://fusevideo.net/e/WNV8GM0Ad3l0ZbW", 298);
+        ajouterEpisode("https://fusevideo.net/e/eY3aD54LDjz0PZJ", 299);
+        ajouterEpisode("https://fusevideo.net/e/5kQO20QeBo8OVVD", 300);
+        ajouterEpisode("https://vidmoly.to/embed-p7ihha9liose.html", 462);
+        ajouterEpisode("https://vidmoly.to/embed-khpo8vor5k7k.html", 463);
+        ajouterEpisode("https://vidmoly.to/embed-rqv340839p7o.html", 464);
+        ajouterEpisode("https://vidmoly.to/embed-ntnmzdht5oi7.html", 465);
+        ajouterEpisode("https://vidmoly.to/embed-zw2u21hiaix8.html", 466);
+        ajouterEpisode("https://vidmoly.to/embed-y9godu7e8z08.html", 467);
+        ajouterEpisode("https://vidmoly.to/embed-6w8l1vdxxwil.html", 468);
+        ajouterEpisode("https://vidmoly.to/embed-ozmoo3ftf8xj.html", 469);
+        ajouterEpisode("https://vidmoly.to/embed-o2tqfi3iwcr2.html", 470);
+        ajouterEpisode("https://vidmoly.to/embed-0s12lycve5ja.html", 471);
+        ajouterEpisode("https://vidmoly.to/embed-vivwzkhhikgo.html", 472);
+        ajouterEpisode("https://vidmoly.to/embed-hfc6mmlsgqc5.html", 473);
+        ajouterEpisode("https://vidmoly.to/embed-9du1wy2dj83a.html", 474);
+        ajouterEpisode("https://vidmoly.to/embed-8x78xe6bzosc.html", 475);
+        ajouterEpisode("https://vidmoly.to/embed-l81hm2zwm90e.html", 476);
+        ajouterEpisode("https://vidmoly.to/embed-8h6a94ak9el6.html", 477);
+        ajouterEpisode("https://vidmoly.to/embed-5y7hzs1h6orp.html", 478);
+        ajouterEpisode("https://vidmoly.to/embed-snmw9o1nexn2.html", 479);
+        ajouterEpisode("https://vidmoly.to/embed-8x7a854rz93l.html", 480);
+        ajouterEpisode("https://vidmoly.to/embed-8x7a854rz93l.html", 480);
+        ajouterEpisode("https://vidmoly.to/embed-j9xdk14d3jm6.html", 481);
+        ajouterEpisode("https://vidmoly.to/embed-tcmuhxe6lq5f.html", 482);
+        ajouterEpisode("https://vidmoly.to/embed-a4s5nrui52ws.html", 483);
+        ajouterEpisode("https://vidmoly.to/embed-0vl6gpwuuamf.html", 484);
+        ajouterEpisode("https://vidmoly.to/embed-i1apvpy43vca.html", 485);
+        ajouterEpisode("https://vidmoly.to/embed-21tz4x8y3k7h.html", 486);
+        ajouterEpisode("https://vidmoly.to/embed-cnxebou4wvou.html", 487);
+        ajouterEpisode("https://vidmoly.to/embed-gqrfki5n7hse.html", 488);
+        ajouterEpisode("https://vidmoly.to/embed-jf6mhdb76mp2.html", 489);
+        ajouterEpisode("https://vidmoly.to/embed-l9wvchqalyy0.html", 490);
+        ajouterEpisode("https://vidmoly.to/embed-es2se3bxw8to.html", 491);
+        ajouterEpisode("https://vidmoly.to/embed-u8mdrsqn9g0h.html", 482);
+        ajouterEpisode("https://fusevideo.net/e/9DAmejoxga4oq3v", 493);
+        ajouterEpisode("https://fusevideo.net/e/AdzDW5rELBPqPQV", 494);
+        ajouterEpisode("https://fusevideo.net/e/xM068mKOkjWDbXQ", 495);
+        ajouterEpisode("https://fusevideo.net/e/obvLYwGDa0jMQ6o", 496);
+        ajouterEpisode("https://fusevideo.net/e/6Opl8R2lWddxWyG", 497);
+        ajouterEpisode("https://fusevideo.net/e/r1QN7ZnOPEAAlPr", 498);
+        ajouterEpisode("https://fusevideo.net/e/Ygg2BQJ0DN195eY", 499);
+        ajouterEpisode("https://fusevideo.net/e/ngqXLwMGpvJOOv8", 500);
+
+    </script>
+</body>
+</html>

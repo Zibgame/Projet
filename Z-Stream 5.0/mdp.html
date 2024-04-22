@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Z-Stream - Mots De Passe</title>
+    <style>
+        .inputAnimate {
+            --offsetLeft: 0;
+            --offsetLeftScale: 16px;
+            padding: 16px;
+            min-width: 220px;
+            position: relative;
+        }
+        
+        .inputAnimate input,
+        .inputAnimate span {
+            display: block;
+            font-size: 16px;
+            font-family: inherit;
+            line-height: 22px;
+            padding: 0 0 0 3px;
+            color: transparent;
+            text-shadow: 0 0 0 #8C6FF0;
+        }
+        
+        .inputAnimate input {
+            background: none;
+            outline: none;
+            border: 0;
+            position: relative;
+            z-index: 1;
+            transition: text-shadow .3s ease;
+        }
+        
+        .inputAnimate input::placeholder {
+            color: #8C6FF0;
+            opacity: .5;
+        }
+        
+        .inputAnimate input + div {
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            background: #fff;
+            border-radius: 6px;
+            transition: transform .4s ease, left .4s ease, border-radius .5s ease;
+            transform-origin: 0 50%;
+        }
+        
+        .inputAnimate input + div + em {
+            opacity: 0;
+            left: 16px;
+            width: 1px;
+            height: 24px;
+            top: 50%;
+            margin: -12px 0 0 0;
+            position: absolute;
+            z-index: 1;
+            display: block;
+            background: #fff;
+            transform: translateX(var(--offsetLeft));
+        }
+        
+        .inputAnimate input:not(:focus) {
+            width: 100% !important;
+        }
+        
+        .inputAnimate input:focus {
+            text-shadow: 0 0 0 #fff;
+        }
+        
+        .inputAnimate input:focus + div {
+            border-radius: 0;
+            left: var(--offsetLeftScale);
+            transform: scale(0, .45);
+        }
+        
+        .inputAnimate input:focus + div + em {
+            animation: blink 1s linear infinite;
+        }
+        
+        .inputAnimate span {
+            display: none;
+        }
+        
+        @keyframes blink {
+            30%, 70% {
+                opacity: 1;
+            }
+        }
+        
+        html {
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        * {
+            box-sizing: inherit;
+        }
+        
+        *:before,
+        *:after {
+            box-sizing: inherit;
+        }
+        
+        body {
+            min-height: 100vh;
+            font-family: Roboto, Arial;
+            color: #ADAFB6;
+            background: #5628EE;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .dribbble {
+            position: fixed;
+            display: block;
+            right: 24px;
+            bottom: 24px;
+        }
+        
+        .dribbble img {
+            display: block;
+            width: 76px;
+        }
+
+		button {
+            padding: 12px 24px;
+            background-color: #8C6FF0;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+			box-shadow: inset 0 0 10px rgb(97, 18, 187), 0 0 28px rgb(0, 0, 0);
+        }
+
+
+        button:hover {
+            background-color: #7C5CC4;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="inputAnimate">
+        <input type="password" id="passwordInput" placeholder="Password">
+    </div>
+    <button onclick="verifyPassword()">Submit</button>
+
+    <a class="dribbble" href="https://dribbble.com/shots/5341172-Text-field-animation" target="_blank">
+        <img src="https://dribbble.com/assets/logo-small-2x-9fe74d2ad7b25fba0f50168523c15fda4c35534f9ea0b1011179275383035439.png" alt="">
+    </a>
+    <script>
+        function verifyPassword() {
+            var validPasswords = [
+                "Y58*5%3rV)m;FhN5pGWu#z2:7",
+                "Jp$7&bZ8+9u",
+                "zibgame",
+            ];
+
+            var input = document.getElementById('passwordInput');
+            var text = input.value;
+
+            if (validPasswords.includes(text)) {
+                window.location.href = "loading.html";
+            } else {
+                console.log("Incorrect password!");
+            }
+        }
+    </script>
+</body>
+</html>
+
