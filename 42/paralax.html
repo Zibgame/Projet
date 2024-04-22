@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paralax</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+        }
+
+        .parallax {
+            background-image: url('https://www.petafrance.com/wp-content/uploads/2023/02/pug-pixabay-800x533.jpeg'); 
+            background-size: cover;
+            background-attachment: fixed;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+
+        .parallax2 {
+            background-image: url('https://jardinage.lemonde.fr/images/dossiers/2023-11/mignon-chien-york-terrier-105758.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+
+        .message-container {
+            text-align: center;
+        }
+
+        .content {
+            background-color: black;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+
+        .black-box {
+            padding: 20px;
+            background-color: black;
+            opacity: 0.7;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="parallax">
+        <div class="message-container">
+            <h1>Yo 42</h1>
+        </div>
+    </div>
+    
+    <div class="content">
+        <div class="black-box">
+            <h2>On se fait "Pool" Up dit donc</h2>
+        </div>
+    </div>
+
+    <div class="parallax2">
+        <div class="message-container">
+            <h1>pas mal le jeux de mo</h1>
+        </div>
+    </div>
+</body>
+</html>
