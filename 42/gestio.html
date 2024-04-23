@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Titre de la page</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    #ft_list {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+    .todo {
+        margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+    <div id="ft_list"></div>
+    <button onclick="newTodo()">New</button>
+
+    <script>
+        function newTodo() {
+            var todoText = prompt("Enter a new todo");
+            if (todoText !== null && todoText.trim() !== "") {
+                var todoDiv = document.createElement("div");
+                todoDiv.textContent = todoText;
+                todoDiv.classList.add("todo");
+                todoDiv.onclick = function() { removeTodo(todoDiv); }
+                document.getElementById("ft_list").prepend(todoDiv);
+                saveTodos();
+            }
+        }
+
+        function removeTodo(todoDiv) { 
+            if (confirm("Suprimer se toodso ?")) {
+                todoDiv.remove(); 
+                saveTodos();
+            }
+        }
+
+        function saveTodos() {
+            var todos = [];
+            var todoElements = document.querySelectorAll(".todo");
+            todoElements.forEach(function(todoElement) {
+                todos.push(todoElement.textContent);
+            });
+        }
+    </script>
+</body>
+</html>
